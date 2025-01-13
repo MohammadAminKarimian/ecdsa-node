@@ -5,6 +5,7 @@ function Transfer({ address, setBalance }) {
   const [sendAmount, setSendAmount] = useState("");
   const [recipient, setRecipient] = useState("");
 
+  // curried function
   const setValue = (setter) => (evt) => setter(evt.target.value);
 
   async function transfer(evt) {
@@ -33,7 +34,7 @@ function Transfer({ address, setBalance }) {
         <input
           placeholder="1, 2, 3..."
           value={sendAmount}
-          onChange={setValue(setSendAmount)}
+          onChange={ setValue(setSendAmount) }
         ></input>
       </label>
 
@@ -42,7 +43,7 @@ function Transfer({ address, setBalance }) {
         <input
           placeholder="Type an address, for example: 0x2"
           value={recipient}
-          onChange={setValue(setRecipient)}
+          onChange={ setValue(setRecipient) }
         ></input>
       </label>
 
