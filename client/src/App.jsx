@@ -1,5 +1,7 @@
 import Wallet from "./Wallet";
 import Transfer from "./Transfer";
+import Login from "./Login";
+import Info from "./Info";
 import "./App.scss";
 import { useState } from "react";
 
@@ -9,6 +11,8 @@ function App() {
 
   return (
     <div className="app">
+      <div className="horizontal-container">
+      <Login />
       <Wallet
         balance={balance}
         setBalance={setBalance}
@@ -16,6 +20,8 @@ function App() {
         setAddress={setAddress}
       />
       <Transfer setBalance={setBalance} address={address} />
+      </div>
+      <Info />
     </div>
   );
 }

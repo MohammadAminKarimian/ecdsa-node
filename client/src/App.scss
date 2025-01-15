@@ -16,6 +16,7 @@ label {
 
 .app {
   display: flex;
+  flex-direction: column;
   max-width: 1400px;
   flex-wrap: wrap;
   gap: 12px;
@@ -40,6 +41,11 @@ label {
   }
 }
 
+.horizontal-container {
+  display: flex;
+  flex-direction: row;
+}
+
 input {
   padding: 10px 0;
   border-radius: 0.125rem;
@@ -47,6 +53,10 @@ input {
   background-color: #fdfdfe;
   padding-inline-start: 0.75rem;
   font-size: 0.875rem;
+}
+
+.green-background {
+  background-color: #0d960d !important;
 }
 
 .button {
@@ -83,4 +93,25 @@ input {
 .transfer {
   display: flex;
   flex-direction: column;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+}
+
+.info {
+  .private {
+    
+  }
+  .public {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 400;
+    font-size: .9em;
+    display: inline-flex;
+    margin-top: 10px;
+    padding: 0.75rem;
+    background-color: #f4f6f8;
+  }
 }

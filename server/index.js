@@ -12,6 +12,30 @@ const balances = {
   "0x3": 75,
 };
 
+const users = [
+  {
+    username: "alpha1amk",
+    password: "123456",
+    privateKey: "",
+    address: "0x1",
+    balance: 100,
+  },
+  {
+    username: "soli",
+    password: "1234567",
+    privateKey: "",
+    address: "0x2",
+    balance: 75,
+  },
+  {
+    username: "ehsan",
+    password: "12345678",
+    privateKey: "",
+    address: "0x3",
+    balance: 50,
+  },
+];
+
 app.get("/balance/:address", (req, res) => {
   const { address } = req.params;
   const balance = balances[address] || 0;
