@@ -1,0 +1,19 @@
+1- config for attaching debugger to a node.js process:
+    {
+        "name": "Express Server Attach",
+        "request": "attach",
+        "skipFiles": [
+            "<node_internals>/**"
+        ],
+        "type": "node",
+        "address": "localhost",
+        "port": 9229,
+        "localRoot": "${workspaceFolder}",
+        "remoteRoot": "${workspaceFolder}"
+    }
+
+2- run the server with this command :
+ $node --inspect-brk index.js       // this command halts the server execution untill a debugger gets attached.
+ $node --inspect-brk=9229 index.js      // if you need to specify another port for debugger (you also have to change the one in launch.json)
+
+3- start vscode debugger using "Express Server Attach" profile.

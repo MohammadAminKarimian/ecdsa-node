@@ -1,21 +1,53 @@
 import server from "./server";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "./UserContext";
 
 function Login() {
 
-  return (
-    <div className="container login">
-      <h1>Login</h1>
+  const { user, setUser } = useContext(UserContext);
+  // const [user, setUser] = useState();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
+  const setValue = (setter) => (evt) => setter(evt.target.value);
+
+  async function signIn(evt) {
+    evt.preventDefault();
+
+    const { data: { user: fetchedUser} } = await server.post("login", 
+      {
+        username: username,
+        password: password
+      }
+    );
+    setUser(fetchedUser);
+  }
+
+  function logUser() {
+    console.log(`user.username: ${user.username}`);
+    console.log(`user.password: ${user.password}`);
+    console.log(`user.privateKey: ${user.privateKey}`);
+    console.log(`user.address: ${user.address}`);
+    console.log(`user.balance: ${user.balance}`);
+  }
+
+  useEffect(() => {
+    window.logUserInfo = logUser;
+  }, [user]);
+
+  return (
+    <form className="container login" onSubmit={signIn} >
+      <h1>Login</h1>
       <label>
         Username
-      <input placeholder="name for your profile"></input>
+      <input name="username" placeholder="name for your profile" onChange={setValue(setUsername)}></input>
       </label>
       <label>
         Password
-      <input placeholder="at least six digits"></input>
+      <input name="password" placeholder="at least six digits" onChange={setValue(setPassword)}></input>
       </label>
       <input className="button green-background" type="submit" value="Login" />
-    </div>
+    </form>
   );
 }
 

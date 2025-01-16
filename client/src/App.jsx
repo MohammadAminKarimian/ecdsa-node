@@ -4,15 +4,19 @@ import Login from "./Login";
 import Info from "./Info";
 import "./App.scss";
 import { useState } from "react";
+import { UserProvider } from "./UserContext";
 
 function App() {
   const [balance, setBalance] = useState(0);
   const [address, setAddress] = useState("");
 
   return (
-    <div className="app">
+    // <UserProvider>
+      <div className="app">
       <div className="horizontal-container">
+      <UserProvider>
       <Login />
+      </UserProvider>
       <Wallet
         balance={balance}
         setBalance={setBalance}
@@ -23,6 +27,7 @@ function App() {
       </div>
       <Info />
     </div>
+    // </UserProvider>
   );
 }
 

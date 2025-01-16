@@ -1,0 +1,13 @@
+config for vscode debugger : 
+    {
+        "type": "msedge",
+        "request": "launch",
+        "name": "Launch Edge against localhost",
+        "url": "http://localhost:5173",
+        "webRoot": "${workspaceFolder}"
+    }
+
+start the client using:
+ $npm run dev
+
+start the debugger with "Launch Edge against localhost" profile.
