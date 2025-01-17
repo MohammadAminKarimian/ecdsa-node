@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import server from "./server";
+import { UserContext } from "./UserContext";
 
-function Transfer({ address, setBalance }) {
+function Transfer() {
+  
+  const { user, setUser } = useContext(UserContext);
   const [sendAmount, setSendAmount] = useState("");
   const [recipient, setRecipient] = useState("");
 
@@ -15,11 +18,12 @@ function Transfer({ address, setBalance }) {
       const {
         data: { balance },
       } = await server.post(`send`, {
-        sender: address,
+        sender: user.address,
         amount: parseInt(sendAmount),
         recipient,
       });
-      setBalance(balance);
+      // setBalance(balance);
+      setUser({...user, balance: balance});
     } catch (ex) {
       alert(ex.response.data.message);
     }

@@ -6,11 +6,11 @@ const port = 3042;
 app.use(cors());
 app.use(express.json());
 
-const balances = {
-  "0x1": 100,
-  "0x2": 50,
-  "0x3": 75,
-};
+// const balances = {
+//   "0x1": 100,
+//   "0x2": 50,
+//   "0x3": 75,
+// };
 
 const users = [
   {
@@ -45,15 +45,18 @@ app.get("/balance/:address", (req, res) => {
 app.post("/send", (req, res) => {
   const { sender, recipient, amount } = req.body;
 
-  setInitialBalance(sender);
-  setInitialBalance(recipient);
+  let sIndex, rIndex;
+  for (let i = 0; i < users.length; i++) {
+    if (users[i].address === sender) sIndex = i;
+    if (users[i].address === recipient) rIndex = i;
+  }
 
-  if (balances[sender] < amount) {
+  if (users[sIndex].balance < amount) {
     res.status(400).send({ message: "Not enough funds!" });
   } else {
-    balances[sender] -= amount;
-    balances[recipient] += amount;
-    res.send({ balance: balances[sender] });
+    users[sIndex].balance -= amount;
+    users[rIndex].balance += amount;
+    res.send({ balance: users[sIndex].balance });
   }
 });
 

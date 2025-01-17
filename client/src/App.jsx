@@ -11,23 +11,16 @@ function App() {
   const [address, setAddress] = useState("");
 
   return (
-    // <UserProvider>
+    <UserProvider>
       <div className="app">
       <div className="horizontal-container">
-      <UserProvider>
       <Login />
-      </UserProvider>
-      <Wallet
-        balance={balance}
-        setBalance={setBalance}
-        address={address}
-        setAddress={setAddress}
-      />
-      <Transfer setBalance={setBalance} address={address} />
+      <Wallet />
+      <Transfer />
       </div>
       <Info />
     </div>
-    // </UserProvider>
+    </UserProvider>
   );
 }
 
