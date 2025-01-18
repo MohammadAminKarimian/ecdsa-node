@@ -5,7 +5,6 @@ import { UserContext } from "./UserContext";
 function Login() {
 
   const { user, setUser } = useContext(UserContext);
-  // const [user, setUser] = useState();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -31,8 +30,22 @@ function Login() {
     console.log(`user.balance: ${user.balance}`);
   }
 
+  async function devInit() {
+    const response = await server.post("devInit");
+    const users = response.data.users;
+
+    if (users != undefined) {
+      users.forEach(user => {
+        console.log(user.username);
+        console.log(user.privateKey);
+        console.log(user.address);
+      });
+    }
+  }
+
   useEffect(() => {
     window.logUserInfo = logUser;
+    window.devInitInfo = devInit;
   }, [user]);
 
   return (
