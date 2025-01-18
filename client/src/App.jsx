@@ -15,8 +15,8 @@ function App() {
       <div className="app">
       <div className="horizontal-container">
       <Login />
-      <Wallet />
-      <Transfer />
+      <Wallet {...{address, setAddress, balance, setBalance}} />
+      <Transfer {...{address}} />
       </div>
       <Info />
     </div>

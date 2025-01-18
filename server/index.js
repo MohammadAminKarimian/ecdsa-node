@@ -50,7 +50,10 @@ const users = [
 
 app.get("/balance/:address", (req, res) => {
   const { address } = req.params;
-  const balance = balances[address] || 0;
+  let balance = 0;
+  users.forEach((user) => {
+    if (user.address === address) balance = user.balance;
+  });
   res.send({ balance });
 });
 

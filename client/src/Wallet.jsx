@@ -1,24 +1,26 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import server from "./server";
 import { UserContext } from "./UserContext";
 
-function Wallet() {
+function Wallet({address, setAddress, balance, setBalance}) {
 
   const { user, setUser } = useContext(UserContext);
+  const [ isChanged, setIsChanged ] = useState(false);
 
   async function onChange(evt) {
-    // const address = evt.target.value;
-    // setUser({...user, address: address});
-    // if (address) {
-    //   const {
-    //     data: { balance },
-    //   } = await server.get(`balance/${address}`);
-    //   setUser({...user, balance: balance});
-    // } else {
-    //   setUser({...user, balance: 0});
-    // }
+    setIsChanged(true);
+    const address = evt.target.value;
+    setAddress(address);
+    if (address) {
+      const {
+        data: { balance },
+      } = await server.get(`balance/${address}`);
+      setBalance(balance);
+    } else {
+      setBalance(0);
+    }
 
-    setUser({...user});
+    // setUser({...user});
   }
 
   return (
@@ -27,10 +29,11 @@ function Wallet() {
 
       <label>
         Wallet Address
-        <input placeholder="Type an address, for example: 0x1" value={user.address} onChange={onChange} className="address"></input>
+        <input placeholder="Type an address, for example: 0x1" 
+        value={isChanged ? address : user.address} onChange={onChange} className="address"></input>
       </label>
 
-      <div className="balance">Balance: {user.balance}</div>
+      <div className="balance">Balance: {isChanged ? balance : user.balance}</div>
     </div>
   );
 }

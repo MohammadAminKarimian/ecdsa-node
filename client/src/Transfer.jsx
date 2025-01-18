@@ -5,7 +5,7 @@ import { secp256k1 } from "ethereum-cryptography/secp256k1";
 import { keccak256 } from "ethereum-cryptography/keccak";
 import { toHex, utf8ToBytes } from "ethereum-cryptography/utils";
 
-function Transfer() {
+function Transfer({address}) {
   
   const { user, setUser } = useContext(UserContext);
   const [sendAmount, setSendAmount] = useState("");
@@ -19,6 +19,19 @@ function Transfer() {
   // curried function
   const setValue = (setter) => (evt) => setter(evt.target.value);
 
+  // input click handlers
+  function submitFormDefault(evt) {
+    evt.preventDefault();
+    evt.target.action = 'default';
+    transfer(evt);
+  }
+
+  function submitFormWithEditedSender(evt) {
+    evt.preventDefault();
+    evt.target.action = 'edited';
+    transfer(evt);
+  }
+
   async function transfer(evt) {
     evt.preventDefault();
 
@@ -27,6 +40,10 @@ function Transfer() {
       amount: parseInt(sendAmount),
       recipient,
     };
+
+    if (evt.target.action.includes('edited')) {
+      transactionData.sender = address;
+    }
 
     // Hash the transaction message (data)
     const serializedTransaction = JSON.stringify(transactionData);
@@ -52,7 +69,7 @@ function Transfer() {
   }
 
   return (
-    <form className="container transfer" onSubmit={transfer}>
+    <form id="transfer_form" className="container transfer" onSubmit={transfer}>
       <h1>Send Transaction</h1>
 
       <label>
@@ -73,7 +90,8 @@ function Transfer() {
         ></input>
       </label>
 
-      <input type="submit" className="button" value="Transfer" />
+      <button className="button" value="Transfer84656" onClick={(evt) => submitFormDefault(evt)} >Transfer</button>
+      <button className="button" value="Transfer2" onClick={(evt) => submitFormWithEditedSender(evt)} >Fake Transfer</button>
     </form>
   );
 }
