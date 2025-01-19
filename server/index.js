@@ -81,7 +81,7 @@ app.post("/send", (req, res) => {
       res.send({ balance: users[sIndex].balance });
     }
   } else {
-    console.log("Request can't be authenticated !!!");
+    res.send({ message: "Transaction can't be authenticated!", error: "auth" });
   }
 });
 

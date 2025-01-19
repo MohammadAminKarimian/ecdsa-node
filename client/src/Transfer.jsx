@@ -59,10 +59,10 @@ function Transfer({address}) {
 
     try {
       const {
-        data: { balance },
+        data: { balance, message, error },
       } = await server.post(`send`, { data: transactionData, sig: serializedSignature });
-      // setBalance(balance);
-      setUser({...user, balance: balance});
+      if (error) alert(message);
+      if (balance) setUser({...user, balance: balance});
     } catch (ex) {
       alert(ex.response.data.message);
     }
@@ -90,8 +90,8 @@ function Transfer({address}) {
         ></input>
       </label>
 
-      <button className="button" value="Transfer84656" onClick={(evt) => submitFormDefault(evt)} >Transfer</button>
-      <button className="button" value="Transfer2" onClick={(evt) => submitFormWithEditedSender(evt)} >Fake Transfer</button>
+      <button className="button" value="Transfer" onClick={(evt) => submitFormDefault(evt)} >Transfer</button>
+      <button className="button buttonFake" value="Transfer2" onClick={(evt) => submitFormWithEditedSender(evt)} >Fake Transfer</button>
     </form>
   );
 }
